@@ -16,7 +16,7 @@ def fnt_selector(op):
         fnt_query()
     
 def fnt_query():
-        fnt_limpiar()
+    fnt_limpiar()
     print('Items Bought:')
     for item, quantity in ls_bought:
         print(f'{item}: {quantity}')
@@ -25,8 +25,9 @@ def fnt_query():
 def fnt_buy():
     fnt_limpiar()
     op2 = input('Store menu\n1. Shirts\n2. Shorts\n3. Socks\n4. Shoes\n5. Soccer balls\n6. Exit\n.-> ')
-    quantity = int(input('quantity?'))
+    
     if op2 in ['1', '2' ,'3', '4', '5']:
+        quantity = int(input('quantity?'))
         item = None
         if op2 == '1':
             item = 'Shirts'
@@ -38,7 +39,14 @@ def fnt_buy():
             item = 'Shoes'
         elif op2 == '5':
             item = 'Soccer balls'
-        ls_bought.append((item, quantity))
+            
+        for i, (existing_item, existing_quantity) in enumerate(ls_bought):
+            if existing_item == item:
+                ls_bought[i] = (existing_item, existing_quantity + quantity)
+                break
+        else:
+            ls_bought.append((item, quantity))
+        
         print(f'{quantity} {item} added to your cart.')
         input('Press <ENTER> to continue.')
     elif op2 == '6':
